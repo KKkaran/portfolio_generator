@@ -1,7 +1,7 @@
 const maths = require("./maths");
 const fs = require("fs");
 const createHtml = require("./src/page-template")
-const profileDataArgs = process.argv.slice(2,process.argv.length)
+//const profileDataArgs = process.argv.slice(2,process.argv.length)
 
 
 
@@ -9,11 +9,10 @@ const profileDataArgs = process.argv.slice(2,process.argv.length)
 //console.log(maths)    
 
 //writes into the file
-// fs.writeFile("index.html", createHtml.generatehtml(profileDataArgs[0],profileDataArgs[1]), error =>{
-//     if (error) throw error
-// })
-//     console.log("Portfolio created sucksexfully!!")
-// })
+fs.writeFile("index.html", createHtml.generatehtml(process.argv[2],process.argv[3]), error =>{
+   
+    error ? error : console.log("portfolio created now!!!")
+})
 
 //reads the file
 // fs.readFile("./index.txt","utf8", (err,data)=>{
