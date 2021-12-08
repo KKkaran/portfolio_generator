@@ -1,0 +1,22 @@
+{
+  "name": "portfolio_generator",
+  "version": "1.0.0",
+  "description": "Creating html content without even opening html file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KKkaran/portfolio_generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KKkaran/portfolio_generator/issues"
+  },
+  "homepage": "https://github.com/KKkaran/portfolio_generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}

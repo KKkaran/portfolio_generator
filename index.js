@@ -1,17 +1,19 @@
 const maths = require("./maths");
 const fs = require("fs");
+const inquirer = require("inquirer")
 const createHtml = require("./src/page-template")
 //const profileDataArgs = process.argv.slice(2,process.argv.length)
 
-
-
+inquirer.prompt("What is your name?").then(ans=>{
+    console.log("so your name is : " + ans)
+})
 
 //console.log(maths)    
 
 //writes into the file
 fs.writeFile("index.html", createHtml.generatehtml(process.argv[2],process.argv[3]), error =>{
    
-    error ? error : console.log("portfolio created now!!!")
+    error ? console.log(error) : console.log("portfolio created now!!!")
 })
 
 //reads the file
