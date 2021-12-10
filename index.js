@@ -1,9 +1,9 @@
  
 // const maths = require("./maths");
-// const fs = require("fs");
+const fs = require("fs");
 const inquirer = require("inquirer")
 // const moment = require("moment")
-// const createHtml = require("./src/page-template")
+const generatePage = require("./src/page-template")
 //const profileDataArgs = process.argv.slice(2,process.argv.length)
 //console.log(maths)    
 //writes into the file
@@ -30,7 +30,15 @@ const promptUser = () => {
       {
         type: 'input',
         name: 'name',
-        message: 'What is your name?'
+        message: 'What is your name?',
+        validate: nameInput => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log('Please enter your name!');
+            return false;
+          }
+        }
       },
       {
         type: 'input',
@@ -44,8 +52,12 @@ const promptUser = () => {
       }
     ]);
 };
-const promptProject = () => {
-    console.log(`
+const promptProject = portfolioData => {
+  
+  if (!portfolioData.projects) {
+    portfolioData.projects = [];
+  }
+  console.log(`
   =================
   Add a New Project
   =================
@@ -84,10 +96,23 @@ const promptProject = () => {
         message: 'Would you like to enter another project?',
         default: false
       }
-    ]);
+    ])
+    .then(projectData => {
+      portfolioData.projects.push(projectData);
+      if (projectData.confirmAddProject) {
+        return promptProject(portfolioData);
+      } else {
+        return portfolioData;
+      }
+    });
 };
-
 promptUser()
-            .then(answer => console.log(answer))
-            .then(promptProject)
-            .then(answers => console.log(answers))
+  .then(promptProject)
+  .then(portfolioData => {
+    // will be uncommented in lesson 4
+    const pageHTML = generatePage(portfolioData);
+    fs.writeFile('./index.html', pageHTML, err => {
+      if (err) throw new Error(err);
+      console.log('Page created! Check out index.html in this directory to see it!');
+    });
+  });
